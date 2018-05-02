@@ -2,18 +2,16 @@
   width: 80%;
   padding-top:530px;
   margin: 0 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-}
 
-  .box div {
+  & div {
     width: 200px;
     height: 70px;
     background-color: salmon;
     margin: 0px 20px;
     
   }
+}
 
 #item_1 {
   // transition: all .4s ease-out;
@@ -29,29 +27,9 @@
 }
 
 .demo {
-
-  padding-bottom: 50vh;
-}
-
-.demo div {
+  div {
     margin: -10px 0;
   }
 
-body {
-  background-color: azure;
+  padding-bottom: 50vh;
 }
-
-h1 {
-  color: #9e1faf;
-  font-size: 100px;
-}
-
-body {
-  background-color: azure;
-}
-
-h1 {
-  color: #9e1faf;
-  font-size: 100px;
-}
-

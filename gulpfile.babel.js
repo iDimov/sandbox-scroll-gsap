@@ -24,15 +24,15 @@ const path = {
 	},
 	src: {
 		html: 'src/html/*.html',
-    js: 'src/js/*.js',
 		style: 'src/css/styles.css',
 		img: 'src/i/*.*',
-		fonts: 'src/fonts/**/*'
+		fonts: 'src/fonts/**/*',
+        js: 'src/js/*.js',
 	},
 	watch: {
 		html: 'src/**/*.html',
 		js: 'src/js/**/*.js',
-		style: 'src/css/**/*.css',
+		css: 'src/css/**/**.css',
 		img: 'src/i/*.*',
 		fonts: 'src/fonts/**/*'
 	}
@@ -42,7 +42,6 @@ const bsConfig = {
     server: {
         baseDir: "./dist"
     },
-    tunnel: false,
     port: 3000,
     logPrefix: 'browserSync',
     open: true
@@ -55,35 +54,35 @@ gulp.task('html:build', () => {
       prefix: '@@',
       basepath: 'src/html/tmpl'
     }))
-		.pipe(gulp.dest(path.dist.html))
-		.pipe(reload({stream: true}));
+    .pipe(gulp.dest(path.dist.html))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('style:build', () => {
-	const processors = [
+const processors = [
     pimport,
     pnested,
-		pcssnext,
-		pinline_svg,
+    pcssnext,
+    pinline_svg,
     psvgo
   ];
-  const min = [
+const min = [
     cssnano
-  ]
-	gulp.src(path.src.style)
-		.pipe(postcss(processors))
+  ]; 
+gulp.src(path.src.style)
+    .pipe(postcss(processors))
     .pipe(gulp.dest(path.dist.css))
+    .pipe(reload({stream: true}))
     .pipe(postcss(min))
     .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(gulp.dest(path.dist.css))
-	.pipe(reload({stream: true}));
+        suffix: '.min'
+        }))
+    .pipe(gulp.dest(path.dist.css));
 });
 
 gulp.task('js:build', () => {
     gulp.src(path.src.js)
-    // .pipe(babel())
+    .pipe(babel())
     .pipe(gulp.dest(path.dist.js))
     .pipe(reload({stream: true}));;
 });
@@ -99,8 +98,8 @@ gulp.task('fonts:build', () => {
 
 gulp.task('build', [
 	'html:build',
-  'style:build',
-  'js:build',
+    'style:build',
+    'js:build',
 	'image:build',
 	'fonts:build'
 ]);
@@ -109,7 +108,7 @@ gulp.task('watch', () => {
     watch([path.watch.html], (event, cb) => {
         gulp.start('html:build');
     });
-    watch([path.watch.style], (event, cb) => {
+    watch([path.watch.css], (event, cb) => {
         gulp.start('style:build');
     });
 		watch([path.watch.js], (event, cb) => {

@@ -1,7 +1,10 @@
+@import './**/**.css';
+
 body {
   background-color: azure;
 }
 h1 {
-  color: lightcoral;
-  font-size: 50px;
+  color: #9e1faf;
+  font-size: 100px;
 }
+
